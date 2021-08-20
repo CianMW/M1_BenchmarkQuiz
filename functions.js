@@ -27,6 +27,7 @@ const displayQuestion = (q) => {
         let innerTextNode = document.createTextNode(answerRadio.toString())
             newLabelNode.appendChild(innerTextNode)
             newLabelNode.setAttribute("for", answerRadio)
+            newLabelNode.classList.add("label")
             document.getElementsByClassName("possible-answers-container")[0].append(newLabelNode)
         
     } 
