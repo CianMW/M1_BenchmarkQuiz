@@ -2,8 +2,8 @@
 let quizNumber = 0
 const displayQuestion = (q) => {
     let FirstQuestionNode = document.createElement("div")
-    let questionText = document.createElement("h3")
-        questionText.innerHTML = questions[q].question
+    let questionText = document.createTextNode(questions[q].question)
+        //questionText.innerHTML = 
         FirstQuestionNode.append(questionText)
         FirstQuestionNode.classList.add("current-question")
     document.getElementsByClassName("question-container")[0].append(FirstQuestionNode)
@@ -34,7 +34,7 @@ const displayQuestion = (q) => {
           newButtonNode.innerHTML = "Next"
           newButtonNode.classList.add("next-question-button")
           newButtonNode.setAttribute("value", "next")
-          newButtonNode.addEventListener("click", handleClick())
+          newButtonNode.addEventListener("click", handleClick)
     
     
           document.getElementsByClassName("possible-answers-container")[0].appendChild(newButtonNode)
@@ -67,13 +67,13 @@ const submitButton = () => {
 
       document.getElementsByClassName("possible-answers-container")[0].appendChild(newButtonNode)
 }
-
+var currentQuestion = 0
 
 let handleClick = () => {
     let radios = document.getElementsByName("possible-answer")
     for (let i = 0; i <= radios.length; i++) {
       let individualRadio = radios[i];
-      if (individualRadio.value !== questions[currentQuestion].correct_answer) {
+      if (individualRadio.value !== questions[currentQuestion].correct_answer && individualRadio.checked) {
       
     }else { 
             currentQuestion += 1
@@ -204,7 +204,6 @@ let questions = [
     },
   ];
 
-let currentQuestion = 0
 let amountCorrect
 let totalQuestions = questions.length
   window.onload = () => {
