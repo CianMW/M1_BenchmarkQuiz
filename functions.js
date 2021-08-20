@@ -30,9 +30,18 @@ const displayQuestion = (q) => {
             document.getElementsByClassName("possible-answers-container")[0].append(newLabelNode)
         
     } 
+      let newButtonNode = document.createElement("BUTTON")
+          newButtonNode.innerHTML = "Next"
+          newButtonNode.classList.add("next-question-button")
+          newButtonNode.setAttribute("value", "next")
+          newButtonNode.addEventListener("click", handleClick())
+    
+    
+          document.getElementsByClassName("possible-answers-container")[0].appendChild(newButtonNode)
+
 }
 
-let totalCorrect = 0
+//let totalCorrect = 0
 
 const defineUserScore = () => {
   let scoreContainer = document.createElement("div")
@@ -42,7 +51,7 @@ const defineUserScore = () => {
 
   let currentAndMaxScore = document.createElement("div")
       currentAndMaxScore.classList.add("current-vs-total")
-      currentAndMaxScore.innerHTML = `${totalCorrect} / ${totalQuestions}`
+      currentAndMaxScore.innerHTML = `Questions complete : ${currentQuestion} / ${totalQuestions}`
 
 
       document.getElementsByClassName("score-container")[0].appendChild(currentAndMaxScore)
@@ -53,13 +62,43 @@ const submitButton = () => {
       newButtonNode.innerHTML = "Next"
       newButtonNode.classList.add("next-question-button")
       newButtonNode.setAttribute("value", "next")
+      newButtonNode.addEventListener("click", handleClick())
 
 
       document.getElementsByClassName("possible-answers-container")[0].appendChild(newButtonNode)
 }
 
 
+let handleClick = () => {
+    let radios = document.getElementsByName("possible-answer")
+    for (let i = 0; i <= radios.length; i++) {
+      let individualRadio = radios[i];
+      if (individualRadio.value !== questions[currentQuestion].correct_answer) {
+      
+    }else { 
+            currentQuestion += 1
+            amountCorrect += 1
+            document.getElementsByClassName("current-question")[0].remove()
+            document.getElementsByClassName("possible-answers-container")[0].remove()
+            displayQuestion(currentQuestion)
+            defineUserScore()
+    }
+  }
+}
+             /*           
+        for(let i = 1; i <= 45; i++) {
+          var radios = document.getElementsByName('group'+i);
+          for(var j = 0; j < radios.length; j++) {
+            var radio = radios[j];
+            if(radio.value === "correct" && radio.checked) {
+              amountCorrect++;
+            }
+          }
+         }                   
+            alert("Correct Responses: " + amountCorrect);
+          }
 
+*/
 
 
 let questions = [
@@ -165,8 +204,10 @@ let questions = [
     },
   ];
 
+let currentQuestion = 0
+let amountCorrect
 let totalQuestions = questions.length
   window.onload = () => {
-    displayQuestion(0)
+    displayQuestion(currentQuestion)
     defineUserScore()
   }
